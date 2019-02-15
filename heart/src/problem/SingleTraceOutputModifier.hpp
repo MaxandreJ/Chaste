@@ -65,6 +65,7 @@ private:
     unsigned mGlobalIndex;
     unsigned mLocalIndex; /**< The local index of the node for which the trace is to be made - set to UINT_MAX if the node is not local to the process*/
     out_stream mFileStream; /**< Output file stream (remains open during solve).*/
+    unsigned mPrecision; /**< The precision of the output to file (e.g. the number 100.1 has precision 4).*/
 
     friend class TestOutputModifiers;
 
