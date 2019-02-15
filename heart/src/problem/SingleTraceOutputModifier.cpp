@@ -36,6 +36,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "SingleTraceOutputModifier.hpp"
 #include "HeartConfig.hpp"
 #include "MathsCustomFunctions.hpp"
+#include "Exception.hpp"
 
 void
 SingleTraceOutputModifier::InitialiseAtStart(DistributedVectorFactory* pVectorFactory)
@@ -64,24 +65,37 @@ SingleTraceOutputModifier::FinaliseAtEnd()
 
 
 void
-SingleTraceOutputModifier::ProcessSolutionAtTimeStep(double time, Vec solution, unsigned problemDim)
+SingleTraceOutputModifier::ProcessSolutionAtTimeStep(double time, Vec solution,
+  unsigned problemDim)
 {
     if (mLocalIndex != UINT_MAX)
     {
-        double* p_solution;
-        VecGetArray(solution, &p_solution);  //This does not need to be collective
-        (*mFileStream) << time;
-        for (unsigned i=0; i<problemDim; ++i)
-        {
-            (*mFileStream) << "\t" << p_solution[mLocalIndex*problemDim+i];
-        }
-        (*mFileStream) << "\n";
-        VecRestoreArray(solution, &p_solution);
+      //added by Max
+      if (mPrecision<2 || mPrecision>20)
+      {
+          EXCEPTION("Precision must be between 2 and 20 (inclusive)");
+      }
+      //end added by Max
 
-        if (mFlushTime > 0.0 && Divides(mFlushTime, time))
-        {
-            mFileStream->flush();
-        }
+      double* p_solution;
+      VecGetArray(solution, &p_solution);  //This does not need to be collective
+
+      //added by Max
+      (*mFileStream) << std::setprecision(mPrecision);
+      //end added by Max
+
+      (*mFileStream) << time;
+      for (unsigned i=0; i<problemDim; ++i)
+      {
+          (*mFileStream) << "\t" << p_solution[mLocalIndex*problemDim+i];
+      }
+      (*mFileStream) << "\n";
+      VecRestoreArray(solution, &p_solution);
+
+      if (mFlushTime > 0.0 && Divides(mFlushTime, time))
+      {
+          mFileStream->flush();
+      }
     }
 }
 

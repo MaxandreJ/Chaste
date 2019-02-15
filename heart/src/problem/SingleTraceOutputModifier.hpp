@@ -109,13 +109,15 @@ public:
      *
      * @param rFilename  The file which is eventually produced by this modifier
      * @param flushTime The simulation time between manual file flushes (if required)
+     * @param precision The precision of the output to file (e.g. the number 100.1 has precision 4).
      *
      */
-    SingleTraceOutputModifier(const std::string& rFilename, unsigned globalIndex, double flushTime=0.0)
+    SingleTraceOutputModifier(const std::string& rFilename, unsigned globalIndex, unsigned precision = 8, double flushTime=0.0)
         : AbstractOutputModifier(rFilename, flushTime),
           mGlobalIndex(globalIndex),
           mLocalIndex(UINT_MAX),
-          mFileStream(NULL)
+          mFileStream(NULL),
+          mPrecision(precision)
     {
     }
 
