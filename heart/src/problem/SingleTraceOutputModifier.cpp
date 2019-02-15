@@ -37,6 +37,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "HeartConfig.hpp"
 #include "MathsCustomFunctions.hpp"
 #include "Exception.hpp"
+#include <iomanip> // necessary to have the std::setprecision function
 
 void
 SingleTraceOutputModifier::InitialiseAtStart(DistributedVectorFactory* pVectorFactory)
