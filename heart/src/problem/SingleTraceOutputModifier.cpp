@@ -71,7 +71,6 @@ SingleTraceOutputModifier::ProcessSolutionAtTimeStep(double time, Vec solution,
 {
     if (mLocalIndex != UINT_MAX)
     {
-      std::cout << "my precision is " << mPrecision << std::endl;
       //added by Max
       if (mPrecision<2 || mPrecision>20)
       {
