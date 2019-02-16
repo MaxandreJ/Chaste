@@ -87,7 +87,8 @@ private:
     /** Private constructor that resets process-specific data, for archiving */
     SingleTraceOutputModifier()
         : mLocalIndex(UINT_MAX),
-          mFileStream(NULL)
+          mFileStream(NULL),
+          mPrecision(8)
     {}
 
 public:
