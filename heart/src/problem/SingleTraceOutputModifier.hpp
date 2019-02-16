@@ -113,7 +113,7 @@ public:
      * @param precision The precision of the output to file (e.g. the number 100.1 has precision 4).
      *
      */
-    SingleTraceOutputModifier(const std::string& rFilename, unsigned globalIndex, unsigned precision = 8, double flushTime=0.0)
+    SingleTraceOutputModifier(const std::string& rFilename, unsigned globalIndex, double flushTime=0.0, unsigned precision = 8)
         : AbstractOutputModifier(rFilename, flushTime),
           mGlobalIndex(globalIndex),
           mLocalIndex(UINT_MAX),
