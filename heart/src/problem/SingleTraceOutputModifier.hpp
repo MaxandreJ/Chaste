@@ -88,7 +88,7 @@ private:
     SingleTraceOutputModifier()
         : mLocalIndex(UINT_MAX),
           mFileStream(NULL),
-          mPrecision(9)
+          mPrecision(12)
     {}
 
 public:
